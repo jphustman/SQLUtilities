@@ -4,7 +4,7 @@ Various SQL Utilities.
 
 Version 2.0 requires Vim 7.
 
-1. A SQL formatter, to make SQL statements (select, insert, update, delete...) more readable.   
+1. A SQL formatter, to make SQL statements (select, insert, update, delete...) more readable.  
 2. Based on create table statements, will generate select lists for a table, as long as the definition exists in some open buffer.
 3. Creates a generic procedure that will perform an insert, update, delete and select based on the definition of a table (if already open in some buffer).  The format is ANSI.
 4.  Returns the column datatype definition for a specified column name (or supplied) based on the definition of a table (if already open in some buffer).
@@ -32,17 +32,17 @@ Functions:
 Examples (these would look much better when using a fixed font):
                                                                             
   Original:
-  SELECT m.MSG_ID, m.PRIORITY_ID, CUST.CUST_NBR, CUST.CUST_NM, 
-  CUST.CUST_LEGAL_NM, CUST.STORE_ADDR_1, CUST.STORE_ADDR_2, 
-  CUST.CROSS_STREET, XMLELEMENT( 'Alerts', XMLELEMENT( 'Alert_alert_id', 
-  alert_id ), XMLELEMENT( 'Alert_agent_id', agent_id ), XMLELEMENT( 
-  'Alert_alert_type_id', alert_type_desc), XMLELEMENT( 
-  'Alert_alert_date', alert_date), XMLELEMENT( 
-  'Alert_url_reference', url_reference), XMLELEMENT( 
-  'Alert_read_status', read_status )) CUST.STORE_CITY, 
-  CUST.STORE_ST, CUST.POST_CODE, CUST.STORE_MGR_NM, FROM MESSAGES m JOIN 
-  PRIORITY_CD P WHERE m.to_person_id = ?  AND p.NAME = 'PRI_EMERGENCY' AND 
-  p.JOB = 'Plumber' AND m.status_id < ( SELECT s.STATUS_ID FROM 
+  SELECT m.MSG_ID, m.PRIORITY_ID, CUST.CUST_NBR, CUST.CUST_NM,
+  CUST.CUST_LEGAL_NM, CUST.STORE_ADDR_1, CUST.STORE_ADDR_2,
+  CUST.CROSS_STREET, XMLELEMENT( 'Alerts', XMLELEMENT( 'Alert_alert_id',
+  alert_id ), XMLELEMENT( 'Alert_agent_id', agent_id ), XMLELEMENT(
+  'Alert_alert_type_id', alert_type_desc), XMLELEMENT(
+  'Alert_alert_date', alert_date), XMLELEMENT(
+  'Alert_url_reference', url_reference), XMLELEMENT(
+  'Alert_read_status', read_status )) CUST.STORE_CITY,
+  CUST.STORE_ST, CUST.POST_CODE, CUST.STORE_MGR_NM, FROM MESSAGES m JOIN
+  PRIORITY_CD P WHERE m.to_person_id = ?  AND p.NAME = 'PRI_EMERGENCY' AND
+  p.JOB = 'Plumber' AND m.status_id < ( SELECT s.STATUS_ID FROM
   MSG_STATUS_CD s WHERE s.NAME = 'MSG_READ') ORDER BY m.msg_id desc
   
                                                                             
@@ -58,7 +58,7 @@ Examples (these would look much better when using a fixed font):
              XMLELEMENT(
                  'Alert_url_reference', url_reference
               ), XMLELEMENT( 'Alert_read_status', read_status )
-         ) CUST.STORE_CITY, CUST.STORE_ST, CUST.POST_CODE, 
+         ) CUST.STORE_CITY, CUST.STORE_ST, CUST.POST_CODE,
          CUST.STORE_MGR_NM
     FROM MESSAGES m
     JOIN PRIORITY_CD P
@@ -75,8 +75,8 @@ Examples (these would look much better when using a fixed font):
   
                                                                             
   Original:
-  UPDATE "SERVICE_REQUEST" SET "BUILDING_ID" = ?, "UNIT_ID" = ?, 
-  "REASON_ID" = ?, "PERSON_ID" = ?, "PRIORITY_ID" = ?, "STATUS_ID" = ?, 
+  UPDATE "SERVICE_REQUEST" SET "BUILDING_ID" = ?, "UNIT_ID" = ?,
+  "REASON_ID" = ?, "PERSON_ID" = ?, "PRIORITY_ID" = ?, "STATUS_ID" = ?,
   "CREATED" = ?, "REQUESTED" = ?, "ARRIVED" = ?  WHERE "REQUEST_ID" = ?
                                                                             
                                                                             
@@ -96,10 +96,10 @@ Examples (these would look much better when using a fixed font):
                                                                             
                                                                             
   Original:
-  INSERT INTO "MESSAGES" ( "MSG_ID", "TO_PERSON_ID", 
-  "FROM_PERSON_ID", "REQUEST_ID", "CREATED", "PRIORITY_ID", 
-  "MSG_TYPE_ID", "STATUS_ID", "READ_WHEN", "TIMEOUT", 
-  "MSG_TXT", "RESEND_COUNT" ) VALUES ( ?, ?, ?, 
+  INSERT INTO "MESSAGES" ( "MSG_ID", "TO_PERSON_ID",
+  "FROM_PERSON_ID", "REQUEST_ID", "CREATED", "PRIORITY_ID",
+  "MSG_TYPE_ID", "STATUS_ID", "READ_WHEN", "TIMEOUT",
+  "MSG_TXT", "RESEND_COUNT" ) VALUES ( ?, ?, ?,
   ?, ?, ?, ?, ?, ?, ?, ?, ? )
                                                                             
                                                                             
@@ -114,18 +114,18 @@ Examples (these would look much better when using a fixed font):
 Functions:
 SQLUCreateColumnList( optional parameter )
                                                                             
-     Assumes either the current file, or any other open buffer, 
+     Assumes either the current file, or any other open buffer,
      has a CREATE TABLE statement in a format similar to this:
      CREATE TABLE customer (
-     	id	INT DEFAULT AUTOINCREMENT,
-     	last_modified TIMESTAMP NULL,
-     	first_name     	VARCHAR(30) NOT NULL,
-     	last_name	VARCHAR(60) NOT NULL,
-     	balance	        NUMERIC(10,2),
-     	PRIMARY KEY( id )
+     id INT DEFAULT AUTOINCREMENT,
+     last_modified TIMESTAMP NULL,
+     first_name     VARCHAR(30) NOT NULL,
+     last_name VARCHAR(60) NOT NULL,
+     balance         NUMERIC(10,2),
+     PRIMARY KEY( id )
      );
-     If you place the cursor on the word customer, then the 
-     unnamed buffer (also displayed by an echo statement) will 
+     If you place the cursor on the word customer, then the
+     unnamed buffer (also displayed by an echo statement) will
      contain:
      id, last_modified, first_name, last_name, balance
                                                                             
@@ -144,64 +144,64 @@ Functions:
 SQLUGetColumnDef( optional parameter )
 SQLUGetColumnDataType( expand("<cword>"), 1 )
                                                                             
-     Assumes either the current file, or any other open buffer, 
+     Assumes either the current file, or any other open buffer,
      has a CREATE TABLE statement in a format similar to this:
      CREATE TABLE customer (
-     	id	INT DEFAULT AUTOINCREMENT,
-     	last_modified TIMESTAMP NULL,
-     	first_name     	VARCHAR(30) NOT NULL,
-     	last_name	VARCHAR(60) NOT NULL,
-     	balance	        NUMERIC(10,2),
-     	PRIMARY KEY( id )
+     id INT DEFAULT AUTOINCREMENT,
+     last_modified TIMESTAMP NULL,
+     first_name     VARCHAR(30) NOT NULL,
+     last_name VARCHAR(60) NOT NULL,
+     balance         NUMERIC(10,2),
+     PRIMARY KEY( id )
      );
-     If you place the cursor on the word first_name, then the 
+     If you place the cursor on the word first_name, then the
      column definition will be placed in the unnamed buffer (and also
      displayed by an echo statement).
      VARCHAR(30) NOT NULL        
                                                                             
      If the command is called as SQLUGetColumnDef( expand("<cword>"), 1 )
      or using the default mapping \scdt, just the datatype (instead
-     of the column definition) will be returned.  A separate command 
+     of the column definition) will be returned.  A separate command
      SQLUGetColumnDataType has been created for this.
-     VARCHAR(30) 
+     VARCHAR(30)
                                                                             
                                                                             
 Functions:
 SQLUCreateProcedure()
                                                                             
-     Assumes either the current file, or any other open buffer, 
+     Assumes either the current file, or any other open buffer,
      has a CREATE TABLE statement in a format similar to this:
      CREATE TABLE customer (
-     	id	        INT DEFAULT AUTOINCREMENT,
-     	last_modified   TIMESTAMP NULL,
-     	first_name     	VARCHAR(30) NOT NULL,
-     	last_name	VARCHAR(60) NOT NULL,
-     	balance	        NUMERIC(10,2),
-     	PRIMARY KEY( id )
+     id         INT DEFAULT AUTOINCREMENT,
+     last_modified   TIMESTAMP NULL,
+     first_name     VARCHAR(30) NOT NULL,
+     last_name VARCHAR(60) NOT NULL,
+     balance         NUMERIC(10,2),
+     PRIMARY KEY( id )
      );
      By calling SQLUCreateProcedure while on the name of a table
      the unnamed buffer will contain the create procedure statement
      for insert, update, delete and select statements.
-     Once pasted into the buffer, unneeded functionality can be 
+     Once pasted into the buffer, unneeded functionality can be
      removed.
                                                                             
                                                                             
                                                                             
 Commands:
 [range]SQLUFormatter ..list..    
-                     : Reformats the SQL statements over the specified 
-                       range.  Statement will lined up given the 
+                     : Reformats the SQL statements over the specified
+                       range.  Statement will lined up given the
                        existing indent of the first word.
 SQLUCreateColumnList:  Creates a comma separated list of column names
                        for the table name under the cursor, assuming
-                       the table definition exists in any open 
+                       the table definition exists in any open
                        buffer.  The column list is placed in the unnamed
                        buffer.
                        This also uses the g:sqlutil_cmd_terminator.
-                       By default a table alias will be added to each of the columns, this is 
+                       By default a table alias will be added to each of the columns, this is
                        configurable, see documentation (new 1.3.7).
                        This routine can optionally take 2 parameters
-                       SQLUCreateColumnList T1 
+                       SQLUCreateColumnList T1
                            Creates a column list for T1
                        SQLUCreateColumnList T1 1
                            Creates a column list for T1 but only for
@@ -216,7 +216,7 @@ SQLUGetColumnDataType
 SQLUCreateProcedure  : Creates a stored procedure to perform standard
                        operations against the table that the cursor
                        is currently under.
-                       
+                      
                                                                             
 
 Suggested Mappings:
@@ -234,22 +234,22 @@ Suggested Mappings:
       cdt - column datatype
       cp  - create procedure
                                                                             
-    To prevent the default mappings from being created, place the 
+    To prevent the default mappings from being created, place the
     following in your _vimrc:
         let g:sqlutil_load_default_maps = 0
                                                                             
 Customization:
     By default this script assumes a command is terminated by a ;
-    If you are using Microsoft SQL Server a command terminator 
+    If you are using Microsoft SQL Server a command terminator
     would be "go", or perhaps "\ngo".
     To permenantly override the terminator in your _vimrc file you can add
           let g:sqlutil_cmd_terminator = "\ngo"
                                                                             
                                                                             
-    When building a column list from a script file (ie CREATE TABLE 
-    statements), you can customize the script to detect when the 
+    When building a column list from a script file (ie CREATE TABLE
+    statements), you can customize the script to detect when the
     column list finishes by creating the following in your _vimrc:
-          let g:sqlutil_col_list_terminators = 
+          let g:sqlutil_col_list_terminators =
                        \ 'primary,reference,unique,check,foreign'
                                                                             
     This can be necessary in the following example:
@@ -258,7 +258,7 @@ Customization:
              first_name VARCHAR(30) NOT NULL,
              last_name  VARCHAR(60) NOT NULL,
              PRIMARY KEY( id )
-          ); 
+          );
 
 Dependencies:
        Align.vim - Version 15
@@ -268,4 +268,4 @@ Dependencies:
 Suggested (Complementary) Plugins:
      dbext.vim - Author: Peter Bagyinszki and David Fishburn
                 - http://www.vim.org/script.php?script_id=356
-
+ 
